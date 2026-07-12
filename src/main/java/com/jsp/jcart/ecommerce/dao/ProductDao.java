@@ -62,4 +62,22 @@ public class ProductDao {
 		}
 		return null;
 	}
+
+	/** Owner apne product ko permanently delete kar sakta hai. */
+	public boolean deleteProductById(int productId) {
+
+		String deleteQuery = "delete from products where id = ?";
+
+		try (Connection connection = UserConnection.getUserConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+
+			preparedStatement.setInt(1, productId);
+			int rowsAffected = preparedStatement.executeUpdate();
+			return rowsAffected > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

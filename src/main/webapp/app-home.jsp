@@ -162,24 +162,22 @@
             </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;margin-top:24px;">
-            <div>
-                <h2 style="font-family:var(--font-display);font-size:clamp(1.5rem,2.6vw,2rem);font-weight:700;color:var(--text-main);margin-bottom:14px;">
-                    Woven by Artisans, Delivered with Care
-                </h2>
-                <p style="color:var(--text-muted);margin-bottom:14px;">
+        <div class="about-grid">
+            <div class="about-copy">
+                <h2>Woven by Artisans, Delivered with Care</h2>
+                <p>
                     J-Cart started with a simple idea: bring genuine, hand-finished carpets and rugs from
                     India's skilled weavers straight to your home, without the usual retail markup. Every
                     piece on our platform is sourced directly from verified product owners &mdash; the
                     artisans and workshops who actually make them.
                 </p>
-                <p style="color:var(--text-muted);margin-bottom:14px;">
+                <p>
                     We personally verify every product owner before their carpets go live, so you always
                     know what you're buying and who you're buying it from. No middlemen, no guesswork
                     &mdash; just quality rugs at fair prices, with a real person on WhatsApp if you have
                     a question.
                 </p>
-                <div class="hero-stats" style="margin-top:24px;">
+                <div class="hero-stats">
                     <div class="stat-item">
                         <div class="stat-number">250+</div>
                         <div class="stat-label">Handcrafted Rugs</div>
@@ -194,21 +192,44 @@
                     </div>
                 </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:16px;">
-                <div class="role-card" style="text-align:left;">
-                    <div class="role-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                    <p class="role-name">Our Mission</p>
-                    <p class="role-desc">Make authentic, artisan-made carpets accessible and affordable for every home in India.</p>
+
+            <div class="about-visual">
+                <div class="about-visual-badge">
+                    <i class="fas fa-certificate"></i>
+                    <div>
+                        <div class="num">100%</div>
+                        <div class="label">Verified Makers</div>
+                    </div>
                 </div>
-                <div class="role-card" style="text-align:left;">
-                    <div class="role-icon"><i class="fas fa-award"></i></div>
-                    <p class="role-name">Quality First</p>
-                    <p class="role-desc">Every product owner is verified by our admin team before their listings go live.</p>
+                <div class="about-visual-main">
+                    <img src="assets/rugs/rug1.jpeg" alt="Hand-knotted carpet in a living room" loading="lazy">
                 </div>
-                <div class="role-card" style="text-align:left;">
-                    <div class="role-icon"><i class="fas fa-people-carry"></i></div>
-                    <p class="role-name">Direct Support</p>
-                    <p class="role-desc">Talk to us directly on call or WhatsApp &mdash; no ticket queues, no chatbots.</p>
+                <div class="about-visual-accent">
+                    <img src="assets/rugs/rug14.jpg" alt="Close-up of handwoven rug pattern" loading="lazy">
+                </div>
+            </div>
+        </div>
+
+        <div class="about-features">
+            <div class="about-feature">
+                <div class="about-feature-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <div>
+                    <h3>Our Mission</h3>
+                    <p>Make authentic, artisan-made carpets accessible and affordable for every home in India.</p>
+                </div>
+            </div>
+            <div class="about-feature">
+                <div class="about-feature-icon"><i class="fas fa-award"></i></div>
+                <div>
+                    <h3>Quality First</h3>
+                    <p>Every product owner is verified by our admin team before their listings go live.</p>
+                </div>
+            </div>
+            <div class="about-feature">
+                <div class="about-feature-icon"><i class="fas fa-people-carry"></i></div>
+                <div>
+                    <h3>Direct Support</h3>
+                    <p>Talk to us directly on call or WhatsApp &mdash; no ticket queues, no chatbots.</p>
                 </div>
             </div>
         </div>

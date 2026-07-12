@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>J-Cart | Owner Dashboard</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <jsp:include page="home-buttom.jsp"></jsp:include>
@@ -62,11 +63,12 @@
                                 <th>Wear Type</th>
                                 <th>Price</th>
                                 <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <% if (products == null || products.isEmpty()) { %>
-                            <tr class="empty-row"><td colspan="7">You haven't added any products yet.</td></tr>
+                            <tr class="empty-row"><td colspan="8">You haven't added any products yet.</td></tr>
                             <% } else {
                                 for (Product product : products) {
                                     int swatch = (product.getProductId() % 5) + 1;
@@ -89,6 +91,13 @@
                                 <td><%= product.getProductWearType() %></td>
                                 <td>&#8377; <%= product.getProductPrice() %></td>
                                 <td><span class="badge badge-yes">live</span></td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm"
+                                       href="delete-product-owner?id=<%= product.getProductId() %>"
+                                       data-confirm="Delete &quot;<%= product.getProductName() %>&quot;? This cannot be undone.">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
                             </tr>
                             <% } } %>
                         </tbody>

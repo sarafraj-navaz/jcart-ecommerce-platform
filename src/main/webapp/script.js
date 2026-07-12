@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", function() {
     initCountdownTimers();
     initTooltips();
     initScrollAnimations();
+    initButtonRipple();
+    initMagneticButtons();
+    initTiltCards();
 });
 
 /* =========================================================
@@ -555,3 +558,105 @@ console.log('%c 🏺 J-Cart ', 'font-size:28px; font-weight:bold; background:#d4
 console.log('%c Luxury E-Commerce Platform v3.0', 'font-size:14px; color:#8899b8;');
 console.log('%c Built with ❤️ using JSP & Servlets', 'font-size:12px; color:#8899b8;');
 console.log('📦 Features: Dark Mode | Toast Notifications | Live Search | Export CSV | Auto-Refresh | Keyboard Shortcuts');
+/* =========================================================
+   BUTTON RIPPLE EFFECT
+   Adds a Material-style expanding ripple from the exact
+   click point on every .btn (works on <button> and <a class="btn">)
+   ========================================================= */
+function initButtonRipple() {
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.btn');
+        if (!btn) return;
+
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 1.8;
+        const ripple = document.createElement('span');
+        ripple.className = 'btn-ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', function() {
+            ripple.remove();
+        });
+    });
+}
+
+/* =========================================================
+   MAGNETIC BUTTONS
+   Primary / large / role-link buttons gently follow the
+   cursor within their own bounds, then spring back on leave.
+   Skipped on touch devices.
+   ========================================================= */
+function initMagneticButtons() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const magnets = document.querySelectorAll('.btn-primary, .btn-lg, .role-link, .navbar-brand');
+
+    magnets.forEach(function(el) {
+        el.classList.add('magnetic');
+
+        el.addEventListener('mousemove', function(e) {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const pull = 0.28;
+            el.style.setProperty('--mx', (x * pull) + 'px');
+            el.style.setProperty('--my', (y * pull) + 'px');
+        });
+
+        el.addEventListener('mouseleave', function() {
+            el.style.setProperty('--mx', '0px');
+            el.style.setProperty('--my', '0px');
+        });
+    });
+}
+
+/* =========================================================
+   3D TILT CARDS
+   Product cards, role cards and auth cards tilt in 3D
+   towards the cursor with a moving light glare on top.
+   ========================================================= */
+function initTiltCards() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cards = document.querySelectorAll('.product-card, .role-card, .auth-card, .about-feature, .about-visual-main');
+
+    cards.forEach(function(card) {
+        card.classList.add('tilt-card');
+
+        const glare = document.createElement('div');
+        glare.className = 'tilt-glare';
+        card.appendChild(glare);
+
+        let frame = null;
+
+        card.addEventListener('mousemove', function(e) {
+            const rect = card.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width;   // 0 -> 1
+            const py = (e.clientY - rect.top) / rect.height;   // 0 -> 1
+
+            const maxTilt = card.classList.contains('product-card') ? 10 : 6;
+            const rotateY = (px - 0.5) * maxTilt * 2;
+            const rotateX = (0.5 - py) * maxTilt * 2;
+
+            if (frame) cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(function() {
+                card.style.setProperty('--rx', rotateX.toFixed(2) + 'deg');
+                card.style.setProperty('--ry', rotateY.toFixed(2) + 'deg');
+                glare.style.background =
+                    'radial-gradient(circle at ' + (px * 100) + '% ' + (py * 100) + '%, rgba(255,255,255,0.22), transparent 55%)';
+            });
+        });
+
+        card.addEventListener('mouseleave', function() {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+            glare.style.background = 'transparent';
+        });
+    });
+}
+
