@@ -12,6 +12,8 @@
     
     <div class="navbar-links">
         <a href="app-home.jsp">Home</a>
+        <a href="app-home.jsp#about">About</a>
+        <a href="app-home.jsp#contact">Contact</a>
         <a href="admin-login.jsp">Admin</a>
         <a href="user-login.jsp">User</a>
         <a href="owner-login.jsp">Owner</a>

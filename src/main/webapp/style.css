@@ -1197,8 +1197,19 @@ table.data-table .empty-row td {
     color: var(--gold);
 }
 
+.shop-wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+@media (max-width: 768px) {
+    .shop-wrap {
+        padding: 0 18px;
+    }
+}
 /* =========================================================
-   PRODUCT GRID (Storefront)
+   PRODUCT GRID (Storefront) — overlay card style
    ========================================================= */
 .product-grid {
     display: grid;
@@ -1207,32 +1218,26 @@ table.data-table .empty-row td {
 }
 
 .product-card {
-    background: rgba(15, 33, 64, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(31, 61, 107, 0.25);
+    position: relative;
+    aspect-ratio: 3 / 4;
     border-radius: var(--radius);
     overflow: hidden;
-    transition: all var(--transition);
-    animation: slideUpFade 0.5s ease both;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    cursor: pointer;
+    background: var(--navy-deep);
+    box-shadow: 0 10px 26px rgba(4, 10, 22, 0.4);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 0.06s);
 }
 
 .product-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--gold);
-    box-shadow: var(--shadow-hover);
-}
-
-.product-card:hover .product-media img {
-    transform: scale(1.08);
+    transform: translateY(-10px) scale(1.015);
+    box-shadow: 0 28px 54px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 122, 0.5);
 }
 
 .product-media {
-    position: relative;
-    aspect-ratio: 1/1;
-    overflow: hidden;
+    position: absolute;
+    inset: 0;
     background: var(--navy-deep);
 }
 
@@ -1240,22 +1245,53 @@ table.data-table .empty-row td {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .product-media img {
+    transform: scale(1.14) rotate(0.3deg);
 }
 
 .product-media::after {
     content: "";
     position: absolute;
-    inset: auto 0 0 0;
-    height: 45%;
-    background: linear-gradient(to top, rgba(10, 22, 40, 0.65), transparent);
+    inset: 0;
+    background: linear-gradient(to top, rgba(6, 14, 28, 0.96) 0%, rgba(6, 14, 28, 0.72) 32%, rgba(6, 14, 28, 0.05) 62%, transparent 100%);
     pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.product-view-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    z-index: 2;
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    background: rgba(10, 22, 40, 0.55);
+    border: 1px solid rgba(212, 175, 122, 0.55);
+    backdrop-filter: blur(6px);
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.product-card:hover .product-view-hint {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .product-badge {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 14px;
+    left: 14px;
     z-index: 2;
     padding: 4px 14px;
     border-radius: var(--radius-full);
@@ -1267,46 +1303,55 @@ table.data-table .empty-row td {
 }
 
 .product-badge.new {
-    background: rgba(46, 204, 113, 0.9);
+    background: rgba(46, 204, 113, 0.92);
     color: white;
 }
 
 .product-badge.limited {
-    background: rgba(231, 76, 94, 0.9);
+    background: rgba(231, 76, 94, 0.92);
     color: white;
 }
 
 .product-badge.sale {
-    background: rgba(243, 156, 18, 0.9);
+    background: rgba(243, 156, 18, 0.92);
     color: white;
 }
 
-.product-body {
-    padding: 18px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+.product-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 20px 18px 18px;
+    transform: translateY(6px);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .product-overlay {
+    transform: translateY(0);
 }
 
 .product-type {
     font-size: 10.5px;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    color: var(--text-muted);
+    color: var(--gold-light);
     margin-bottom: 4px;
+    opacity: 0.85;
 }
 
 .product-name {
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
+    color: var(--text-main);
     margin-bottom: 6px;
     line-height: 1.3;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 2.6em;
 }
 
 .product-rating {
@@ -1315,7 +1360,7 @@ table.data-table .empty-row td {
     gap: 6px;
     font-size: 12px;
     color: var(--text-muted);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .product-rating .stars {
@@ -1328,9 +1373,8 @@ table.data-table .empty-row td {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    margin-top: auto;
-    padding-top: 6px;
-    border-top: 1px solid rgba(31, 61, 107, 0.25);
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .product-price {
@@ -1347,6 +1391,205 @@ table.data-table .empty-row td {
     color: var(--text-muted);
     font-weight: 500;
 }
+
+.whatsapp-add {
+    background: #25d366;
+    border-color: #25d366;
+    color: #08210f;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.whatsapp-add:hover {
+    background: #1ebe5a;
+    transform: scale(1.06);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+}
+
+@media (max-width: 480px) {
+    .product-view-hint { display: none; }
+}
+
+/* =========================================================
+   PRODUCT DETAIL MODAL
+   ========================================================= */
+.product-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(4, 9, 20, 0.78);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.product-modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.product-modal {
+    display: flex;
+    width: 100%;
+    max-width: 880px;
+    max-height: 88vh;
+    background: linear-gradient(160deg, #101f38, #0a1628);
+    border: 1px solid rgba(212, 175, 122, 0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+    transform: translateY(24px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.product-modal-backdrop.active .product-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.modal-media {
+    position: relative;
+    flex: 1 1 42%;
+    min-height: 320px;
+    background: var(--navy-deep);
+}
+
+.modal-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.modal-body {
+    flex: 1 1 58%;
+    padding: 34px 34px 30px;
+    overflow-y: auto;
+}
+
+.modal-body h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    line-height: 1.25;
+}
+
+.modal-price {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 14px 0 16px;
+}
+
+.modal-price .price-unit {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-left: 6px;
+}
+
+.modal-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 26px;
+}
+
+.modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.modal-actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.modal-actions .btn-primary {
+    background: #25d366;
+    border-color: #25d366;
+    color: #08210f;
+}
+
+.modal-actions .btn-primary:hover {
+    background: #1ebe5a;
+}
+
+.modal-contact {
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.contact-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-main);
+    font-size: 14px;
+    padding: 8px 0;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.contact-line i {
+    color: var(--gold);
+    width: 16px;
+}
+
+.contact-line:hover {
+    color: var(--gold-light);
+    transform: translateX(4px);
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(6, 14, 28, 0.65);
+    color: var(--text-main);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.modal-close:hover {
+    background: rgba(231, 76, 94, 0.85);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 720px) {
+    .product-modal {
+        flex-direction: column;
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+    .modal-media {
+        min-height: 220px;
+    }
+    .modal-body {
+        padding: 26px 22px 26px;
+    }
+}
+
 
 /* =========================================================
    SHOP HERO
@@ -1681,5 +1924,14 @@ table.data-table .empty-row td {
     .product-grid {
         grid-template-columns: 1fr;
         gap: 16px;
+    }
+}
+
+/* Featured Collection (home page) shows only the first 8 cards on mobile/tablet
+   so the page stays short and fast; the rest are available via "View All".
+   This does NOT apply to the all-carpets.jsp grid (id="allCarpetsGrid" is excluded). */
+@media (max-width: 860px) {
+    .product-grid:not(#allCarpetsGrid) .product-card:nth-child(n+9) {
+        display: none;
     }
 }

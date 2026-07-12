@@ -33,7 +33,9 @@ public class AddProductController extends HttpServlet {
 
 		Product product = new Product(name, type, wearType, price);
 
-		// Uploaded file ko "assets/rugs" folder mein save karo aur uska relative path DB ke liye rakho
+		// Uploaded file ko ek PERSISTENT folder mein save karo (webapp ke deployed
+		// folder ke bahar), taaki redeploy/rebuild/container-restart ke baad bhi
+		// image gayab na ho. Serving PhotoController (/photo?file=...) ke through hoti hai.
 		Part filePart = req.getPart("productImageFile");
 		if (filePart != null && filePart.getSize() > 0) {
 			String originalName = filePart.getSubmittedFileName();
@@ -42,20 +44,15 @@ public class AddProductController extends HttpServlet {
 					: ".jpg";
 			String newFileName = "rug-" + UUID.randomUUID() + extension;
 
-			// Deployed webapp ke andar assets/rugs ka real (disk) path nikalo
-			String rugsFolderPath = getServletContext().getRealPath("/assets/rugs/");
-			File rugsFolder = new File(rugsFolderPath);
-			if (!rugsFolder.exists()) {
-				rugsFolder.mkdirs();
-			}
+			File uploadDir = UploadPaths.getUploadDir();
 
-			Path targetPath = new File(rugsFolder, newFileName).toPath();
+			Path targetPath = new File(uploadDir, newFileName).toPath();
 			try (InputStream fileContent = filePart.getInputStream()) {
 				Files.copy(fileContent, targetPath, StandardCopyOption.REPLACE_EXISTING);
 			}
 
-			// Yahi path database ke "image" column mein jaayega
-			product.setImagePath("assets/rugs/" + newFileName);
+			// DB mein ab ek servlet URL store hoga, ek static asset path nahi
+			product.setImagePath("photo?file=" + newFileName);
 		}
 
 		new ProductService().saveProductService(product);

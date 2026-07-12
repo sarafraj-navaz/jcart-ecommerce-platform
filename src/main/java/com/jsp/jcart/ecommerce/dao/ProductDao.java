@@ -39,7 +39,11 @@ public class ProductDao {
 
 	public List<Product> getAllProductData() {
 
-		String displayProductDataQuery = "select * from products";
+		// ORDER BY id ASC lagaya hai taaki MySQL har request par same, consistent
+		// order return kare. Pehle ORDER BY nahi tha, isliye refresh karne par
+		// products ka order kabhi-kabhi badal jaata tha (jo "cards change after
+		// refresh" wale bug jaisa dikhta tha).
+		String displayProductDataQuery = "select * from products order by id asc";
 
 		try (Connection connection = UserConnection.getUserConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(displayProductDataQuery);
