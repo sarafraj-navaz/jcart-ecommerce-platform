@@ -46,6 +46,7 @@ public class AuthFilter implements Filter {
 				return;
 			}
 		} else if (path.equals("/owner-home.jsp") || path.equals("/add-product-owner.jsp")
+				|| path.equals("/add-product-owner") || path.equals("/edit-product-owner")
 				|| path.equals("/delete-product-owner")) {
 			if (session == null || session.getAttribute("ownerEmail") == null) {
 				resp.sendRedirect(ctx + "/owner-login.jsp");

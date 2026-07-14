@@ -1,0 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J-Cart | Owner OTP Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <jsp:include page="home-buttom.jsp"></jsp:include>
+
+    <%
+    String otpContact = (String) request.getAttribute("otpContact");
+    String otpSent = (String) request.getAttribute("otpSent");
+    String otpError = (String) request.getAttribute("otpError");
+    %>
+
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-eyebrow">Product Owner</div>
+            <h2 class="auth-title">Enter Your Code</h2>
+            <p class="auth-subtitle">We sent a 6-digit login code to your email or phone.</p>
+
+            <% if (otpSent != null) { %>
+            <div class="alert alert-success"><%= otpSent %></div>
+            <% } %>
+            <% if (otpError != null) { %>
+            <div class="alert alert-error"><%= otpError %></div>
+            <% } %>
+
+            <form class="auth-form" action="owner-verify-login-otp" method="post">
+                <div class="form-group">
+                    <label for="ownerContact">Email or Phone Number</label>
+                    <input type="text" id="ownerContact" name="ownerContact"
+                           value="<%= otpContact != null ? otpContact : "" %>" placeholder="you@example.com or phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="otp">6-digit Code</label>
+                    <input type="text" id="otp" name="otp" maxlength="6" inputmode="numeric" placeholder="123456" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Verify &amp; Login</button>
+            </form>
+
+            <p class="auth-footer">
+                Didn't get a code? <a href="owner-login.jsp">Back to login</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

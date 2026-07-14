@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import com.jsp.jcart.ecommerce.dto.User;
 import com.jsp.jcart.ecommerce.service.UserService;
+import com.jsp.jcart.ecommerce.util.PasswordUtil;
 
 @WebServlet(value = "/loginUser")
 public class UserLoginController extends HttpServlet {
@@ -25,12 +26,14 @@ public class UserLoginController extends HttpServlet {
 
 		User user = userService.loginWithUserService(userEmail);
 
-		if (user != null && user.getUserPassword().equals(userPassword)) {
+		if (user != null && PasswordUtil.verify(userPassword, user.getUserPassword())) {
 
 			HttpSession session = req.getSession(true);
 			session.invalidate();
 			session = req.getSession(true);
 			session.setAttribute("userEmail", user.getUserEmail());
+			session.setAttribute("userId", user.getUserId());
+			session.setAttribute("userName", user.getUserName());
 
 			req.getRequestDispatcher("user-home.jsp").forward(req, resp);
 

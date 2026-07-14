@@ -12,6 +12,7 @@ public class Product {
 	private String verify;
 	private String imagePath;
 	private InputStream inputStream;
+	private int ownerId;
 	
 	
 	
@@ -118,6 +119,27 @@ public class Product {
 		this.productPrice = productPrice;
 		this.verify = verify;
 		this.imagePath = imagePath;
+	}
+
+	public Product(int productId, String productName, String productType, String productWearType, double productPrice,
+			String verify, String imagePath, int ownerId) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productType = productType;
+		this.productWearType = productWearType;
+		this.productPrice = productPrice;
+		this.verify = verify;
+		this.imagePath = imagePath;
+		this.ownerId = ownerId;
+	}
+
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public int getProductId() {

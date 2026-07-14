@@ -514,6 +514,35 @@ body::before {
     transform-origin: left;
 }
 
+.auth-alt-form {
+    margin-top: 6px;
+}
+
+.auth-alt-links {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12.5px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.auth-alt-links a {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.auth-alt-links a:hover {
+    color: var(--gold-light);
+}
+
+.auth-alt-sep {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
 /* File upload */
 .file-field {
     border: 2px dashed var(--navy-line);
@@ -1131,6 +1160,12 @@ table.data-table .empty-row td {
     padding: 40px 18px;
 }
 
+table.data-table .action-cell {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
 /* =========================================================
    VERIFICATION PANELS
    ========================================================= */
@@ -1608,6 +1643,66 @@ table.data-table .empty-row td {
     height: 100%;
     object-fit: cover;
     display: block;
+    cursor: zoom-in;
+}
+
+/* =========================================================
+   IMAGE LIGHTBOX (fullscreen view)
+   ========================================================= */
+.image-lightbox-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: rgba(4, 9, 20, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.image-lightbox-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.image-lightbox-backdrop img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+    transform: scale(0.96);
+    transition: transform 0.3s ease;
+    cursor: zoom-out;
+}
+
+.image-lightbox-backdrop.active img {
+    transform: scale(1);
+}
+
+.image-lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.image-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.24);
 }
 
 .modal-body {

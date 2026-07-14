@@ -10,16 +10,9 @@ CREATE TABLE IF NOT EXISTS user (
     email VARCHAR(150) UNIQUE,
     password VARCHAR(200),
     phone BIGINT,
-    address VARCHAR(255)
-);
-
-CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150),
-    type VARCHAR(50),
-    weartype VARCHAR(50),
-    price DOUBLE,
-    image VARCHAR(255)   -- relative path, e.g. assets/rugs/rug-<uuid>.jpg
+    address VARCHAR(255),
+    otp_code VARCHAR(10) NULL,
+    otp_expiry BIGINT NULL
 );
 
 CREATE TABLE IF NOT EXISTS owner (
@@ -28,7 +21,20 @@ CREATE TABLE IF NOT EXISTS owner (
     email VARCHAR(150) UNIQUE,
     password VARCHAR(200),
     phone BIGINT,
-    verify VARCHAR(10) DEFAULT 'no'
+    verify VARCHAR(10) DEFAULT 'no',
+    otp_code VARCHAR(10) NULL,
+    otp_expiry BIGINT NULL
+);
+
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150),
+    type VARCHAR(50),
+    weartype VARCHAR(50),
+    price DOUBLE,
+    image VARCHAR(255),   -- relative path, e.g. assets/rugs/rug-<uuid>.jpg
+    owner_id INT NULL,
+    CONSTRAINT fk_products_owner FOREIGN KEY (owner_id) REFERENCES owner(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS admin (

@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import com.jsp.jcart.ecommerce.dto.Product;
@@ -25,6 +26,13 @@ public class AddProductController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+		if (session == null || session.getAttribute("ownerId") == null) {
+			resp.sendRedirect(req.getContextPath() + "/owner-login.jsp");
+			return;
+		}
+		int ownerId = (int) session.getAttribute("ownerId");
 
 		String name = req.getParameter("productName");
 		String type = req.getParameter("productType");
@@ -55,7 +63,7 @@ public class AddProductController extends HttpServlet {
 			product.setImagePath("photo?file=" + newFileName);
 		}
 
-		new ProductService().saveProductService(product);
+		new ProductService().saveProductService(product, ownerId);
 
 		req.getRequestDispatcher("owner-home.jsp").forward(req, resp);
 	}

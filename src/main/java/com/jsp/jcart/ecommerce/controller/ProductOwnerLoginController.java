@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import com.jsp.jcart.ecommerce.dto.ProductOwner;
 import com.jsp.jcart.ecommerce.service.ProductOwnerService;
+import com.jsp.jcart.ecommerce.util.PasswordUtil;
 
 @WebServlet("/ownerLogin")
 public class ProductOwnerLoginController extends HttpServlet {
@@ -23,7 +24,7 @@ public class ProductOwnerLoginController extends HttpServlet {
 
 		ProductOwner owner = new ProductOwnerService().loginWithEmailPasswordService(email);
 
-		if (owner != null && owner.getPassword().equals(password)) {
+		if (owner != null && PasswordUtil.verify(password, owner.getPassword())) {
 
 			if ("yes".equals(owner.getVerify())) {
 
@@ -31,6 +32,8 @@ public class ProductOwnerLoginController extends HttpServlet {
 				session.invalidate();
 				session = req.getSession(true);
 				session.setAttribute("ownerEmail", owner.getEmail());
+				session.setAttribute("ownerId", owner.getId());
+				session.setAttribute("ownerName", owner.getName());
 
 				req.getRequestDispatcher("owner-home.jsp").forward(req, resp);
 			} else {

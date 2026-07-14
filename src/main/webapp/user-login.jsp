@@ -14,6 +14,8 @@
     <%
     String emailMessage = (String) request.getAttribute("incorrectPassword");
     String passwordMessage = (String) request.getAttribute("incorrectEmail");
+    String otpError = (String) request.getAttribute("otpError");
+    String resetSuccess = (String) request.getAttribute("resetSuccess");
     %>
 
     <div class="auth-page">
@@ -28,8 +30,14 @@
             <% if (passwordMessage != null) { %>
             <div class="alert alert-error"><%= passwordMessage %></div>
             <% } %>
+            <% if (otpError != null) { %>
+            <div class="alert alert-error"><%= otpError %></div>
+            <% } %>
+            <% if (resetSuccess != null) { %>
+            <div class="alert alert-success"><%= resetSuccess %></div>
+            <% } %>
 
-            <form class="auth-form" action="loginUser" method="post">
+            <form class="auth-form" id="userPasswordForm" action="loginUser" method="post">
                 <div class="form-group">
                     <label for="userName">Username</label>
                     <input type="text" id="userName" name="userName" placeholder="Your username">

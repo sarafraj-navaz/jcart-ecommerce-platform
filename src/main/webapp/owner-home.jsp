@@ -1,6 +1,5 @@
 <%@page import="com.jsp.jcart.ecommerce.dto.Product"%>
-<%@page import="com.jsp.jcart.ecommerce.dao.ProductDao"%>
-<%@page import="com.jsp.jcart.ecommerce.dto.ProductOwner"%>
+<%@page import="com.jsp.jcart.ecommerce.service.ProductService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -16,8 +15,14 @@
     <jsp:include page="home-buttom.jsp"></jsp:include>
 
     <%
-    ProductDao dao = new ProductDao();
-    java.util.List<Product> products = dao.getAllProductData();
+    // AuthFilter isko already ensure kar chuka hai ki session mein ownerId maujood hai,
+    // lekin defensive coding ke liye yahan bhi dobara check kar rahe hain.
+    Integer ownerIdObj = (Integer) session.getAttribute("ownerId");
+    int ownerId = ownerIdObj == null ? 0 : ownerIdObj;
+    String ownerName = (String) session.getAttribute("ownerName");
+    if (ownerName == null) ownerName = "there";
+
+    java.util.List<Product> products = new ProductService().getProductsForOwnerService(ownerId);
     int productCount = products == null ? 0 : products.size();
     %>
 
@@ -30,8 +35,8 @@
                     </div>
                     <div>
                         <div class="auth-eyebrow">Product Owner</div>
-                        <h2>Welcome to Your Storefront</h2>
-                        <p class="subtitle">Manage the products you have listed on J-Cart.</p>
+                        <h2>Welcome back, <%= ownerName %></h2>
+                        <p class="subtitle">Manage only the products you have listed on J-Cart.</p>
                     </div>
                 </div>
                 <div class="dashboard-hero-actions">
@@ -42,7 +47,7 @@
 
             <div class="stat-grid">
                 <div class="stat-card">
-                    <div class="stat-label">Products Listed</div>
+                    <div class="stat-label">Your Products Listed</div>
                     <div class="stat-value"><%= productCount %></div>
                 </div>
             </div>
@@ -68,7 +73,7 @@
                         </thead>
                         <tbody>
                             <% if (products == null || products.isEmpty()) { %>
-                            <tr class="empty-row"><td colspan="8">You haven't added any products yet.</td></tr>
+                            <tr class="empty-row"><td colspan="8">You haven't added any products yet. Click "+ Add Product" to list your first carpet.</td></tr>
                             <% } else {
                                 for (Product product : products) {
                                     int swatch = (product.getProductId() % 5) + 1;
@@ -91,7 +96,10 @@
                                 <td><%= product.getProductWearType() %></td>
                                 <td>&#8377; <%= product.getProductPrice() %></td>
                                 <td><span class="badge badge-yes">live</span></td>
-                                <td>
+                                <td class="action-cell">
+                                    <a class="btn btn-outline btn-sm" href="edit-product-owner?id=<%= product.getProductId() %>">
+                                        <i class="fas fa-pen"></i> Edit
+                                    </a>
                                     <a class="btn btn-danger btn-sm"
                                        href="delete-product-owner?id=<%= product.getProductId() %>"
                                        data-confirm="Delete &quot;<%= product.getProductName() %>&quot;? This cannot be undone.">
