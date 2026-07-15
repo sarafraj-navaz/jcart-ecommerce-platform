@@ -123,7 +123,7 @@
         <div class="product-modal" onclick="event.stopPropagation();">
             <button class="modal-close" onclick="closeProductModal(event)" aria-label="Close"><i class="fas fa-times"></i></button>
             <div class="modal-media">
-                <img id="modalImg" src="" alt="" onclick="openImageLightbox();">
+                <img id="modalImg" src="" alt="">
                 <span class="product-badge" id="modalBadge"></span>
             </div>
             <div class="modal-body">
@@ -152,12 +152,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Fullscreen Image Lightbox -->
-    <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="closeImageLightbox();">
-        <button class="image-lightbox-close" onclick="closeImageLightbox(); event.stopPropagation();" aria-label="Close"><i class="fas fa-times"></i></button>
-        <img id="lightboxImg" src="" alt="">
     </div>
 
     <!-- Footer -->
@@ -208,19 +202,6 @@
             document.body.style.overflow = '';
         }
 
-        // Fullscreen image lightbox
-        function openImageLightbox() {
-            const src = document.getElementById('modalImg').src;
-            const alt = document.getElementById('modalImg').alt;
-            document.getElementById('lightboxImg').src = src;
-            document.getElementById('lightboxImg').alt = alt;
-            document.getElementById('imageLightboxBackdrop').classList.add('active');
-        }
-
-        function closeImageLightbox() {
-            document.getElementById('imageLightboxBackdrop').classList.remove('active');
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.product-card').forEach(function(card) {
                 card.addEventListener('click', function() {
@@ -230,10 +211,7 @@
         });
 
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeImageLightbox();
-                closeProductModal(e);
-            }
+            if (e.key === 'Escape') closeProductModal(e);
         });
 
         // Search filter for the full collection

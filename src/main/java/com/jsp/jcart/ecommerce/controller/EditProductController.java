@@ -30,7 +30,7 @@ import com.jsp.jcart.ecommerce.service.ProductService;
  * URL/form can't be used to edit someone else's product.
  */
 @WebServlet(value = "/edit-product-owner")
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024)
+@MultipartConfig(maxFileSize = 20 * 1024 * 1024, maxRequestSize = 25 * 1024 * 1024)
 public class EditProductController extends HttpServlet {
 
 	@Override

@@ -95,7 +95,7 @@
                                 <td><%= product.getProductType() %></td>
                                 <td><%= product.getProductWearType() %></td>
                                 <td>&#8377; <%= product.getProductPrice() %></td>
-                                <td><span class="badge badge-yes">live</span></td>
+                                <td><span class="badge badge-success">live</span></td>
                                 <td class="action-cell">
                                     <a class="btn btn-outline btn-sm" href="edit-product-owner?id=<%= product.getProductId() %>">
                                         <i class="fas fa-pen"></i> Edit

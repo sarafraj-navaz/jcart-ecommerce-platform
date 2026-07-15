@@ -19,6 +19,6 @@ public class AdminVerifyProductOwnerController extends HttpServlet {
 
 		new ProductOwnerService().verifyProductOwnerByIdService(Integer.parseInt(req.getParameter("ownerid")));
 
-		req.getRequestDispatcher("verify-owner.jsp").forward(req, resp);
+		resp.sendRedirect(req.getContextPath() + "/admin-home.jsp");
 	}
 }

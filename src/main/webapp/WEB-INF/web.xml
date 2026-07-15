@@ -4,7 +4,7 @@
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-  <display-name>JCart E-Commerce Platform</display-name>
+  <display-name>JCart Ecommerce Project</display-name>
 
   <welcome-file-list>
     <welcome-file>app-home.jsp</welcome-file>

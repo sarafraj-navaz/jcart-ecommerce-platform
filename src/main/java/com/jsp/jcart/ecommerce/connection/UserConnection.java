@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class UserConnection {
 
 	private static final String URL = System.getenv().getOrDefault(
-			"JCART_DB_URL", "jdbc:mysql://localhost:3306/jcart_web_app?useSSL=false&serverTimezone=UTC");
+			"JCART_DB_URL", "jdbc:mysql://localhost:3306/jcart_web_app?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
 	private static final String USER = System.getenv().getOrDefault("JCART_DB_USER", "root");
 	private static final String PASSWORD = System.getenv().getOrDefault("JCART_DB_PASSWORD", "Raj@#0786");
 

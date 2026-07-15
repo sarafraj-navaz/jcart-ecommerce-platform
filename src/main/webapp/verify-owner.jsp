@@ -43,8 +43,12 @@
             <div class="owner-card" data-name="<%= owner.getName().toLowerCase() %>" data-email="<%= owner.getEmail().toLowerCase() %>">
                 <div class="owner-avatar"><%= initials %></div>
                 <div class="owner-info">
-                    <div class="owner-name"><%= owner.getName() %></div>
-                    <div class="owner-meta"><%= owner.getEmail() %> · <%= owner.getPhone() %></div>
+                    <div class="owner-name"><span class="owner-name-text"><%= owner.getName() %></span> <span class="badge badge-success">verified</span></div>
+                    <div class="owner-meta">
+                        <a href="mailto:<%= owner.getEmail() %>" title="Email <%= owner.getName() %>"><i class="fas fa-envelope"></i> <%= owner.getEmail() %></a>
+                        <span class="owner-meta-sep">&middot;</span>
+                        <a href="tel:<%= owner.getPhone() %>" title="Call <%= owner.getName() %>"><i class="fas fa-phone"></i> <%= owner.getPhone() %></a>
+                    </div>
                 </div>
                 <div class="owner-actions">
                     <a class="btn btn-sm btn-danger" href="unverify?ownerid=<%= owner.getId() %>"

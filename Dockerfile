@@ -5,7 +5,7 @@ RUN mvn clean package -DskipTests
 
 FROM tomcat:10.1-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --from=build /app/target/jcart-ecommerce-platform.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/jcart-ecommerce-project.war /usr/local/tomcat/webapps/ROOT.war
 
 # Owner-uploaded product images are saved to <user.home>/jcart-uploads
 # (root's home inside this image = /root/jcart-uploads). Mount a volume here

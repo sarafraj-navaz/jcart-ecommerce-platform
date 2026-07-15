@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.jsp</groupId>
-  <artifactId>jcart-ecommerce-platform</artifactId>
+  <artifactId>jcart-ecommerce-project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>jcart-ecommerce-platform Maven Webapp</name>
+  <name>JCart Ecommerce Project</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -39,15 +39,10 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>8.1.0</version>
     </dependency>
-    <dependency>
-  <groupId>org.eclipse.angus</groupId>
-  <artifactId>angus-mail</artifactId>
-  <version>2.0.5</version>
-</dependency>
   </dependencies>
 
   <build>
-    <finalName>jcart-ecommerce-platform</finalName>
+    <finalName>jcart-ecommerce-project</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

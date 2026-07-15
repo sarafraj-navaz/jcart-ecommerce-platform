@@ -21,7 +21,7 @@ import com.jsp.jcart.ecommerce.dto.Product;
 import com.jsp.jcart.ecommerce.service.ProductService;
 
 @WebServlet(value = "/add-product-owner")
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024) // max 5MB image
+@MultipartConfig(maxFileSize = 20 * 1024 * 1024, maxRequestSize = 25 * 1024 * 1024) // max 20MB image, room for HD photos
 public class AddProductController extends HttpServlet {
 
 	@Override

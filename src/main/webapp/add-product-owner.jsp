@@ -115,7 +115,7 @@
                         <img id="productImagePreview" style="max-width:160px;border-radius:12px;border:2px solid #e9ecef;padding:4px;">
                         <button type="button" onclick="clearImage()" style="display:inline-block;margin-left:12px;background:#fee;border:1px solid #f5c6cb;color:#721c24;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:13px;">Remove</button>
                     </div>
-                    <div class="field-hint">Upload a clear product image (JPG, PNG, WebP)</div>
+                    <div class="field-hint">Upload a clear product image (JPG, PNG, WebP) &mdash; HD images supported, up to 20MB</div>
                 </div>
 
                 <!-- Hidden field for image path (will be set by server) -->

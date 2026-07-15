@@ -15,8 +15,6 @@
     String incorrectOwnerEmail = (String) request.getAttribute("incorrectOwnerEmail");
     String incorrectOwnerPass = (String) request.getAttribute("incorrectOwnerPass");
     String unverified = (String) request.getAttribute("unverified");
-    String otpError = (String) request.getAttribute("otpError");
-    String resetSuccess = (String) request.getAttribute("resetSuccess");
     %>
 
     <div class="auth-page">
@@ -34,14 +32,8 @@
             <% if (unverified != null) { %>
             <div class="alert alert-error"><%= unverified %></div>
             <% } %>
-            <% if (otpError != null) { %>
-            <div class="alert alert-error"><%= otpError %></div>
-            <% } %>
-            <% if (resetSuccess != null) { %>
-            <div class="alert alert-success"><%= resetSuccess %></div>
-            <% } %>
 
-            <form class="auth-form" id="ownerPasswordForm" action="ownerLogin" method="post">
+            <form class="auth-form" action="ownerLogin" method="post">
                 <div class="form-group">
                     <label for="OwnerEmail">Email</label>
                     <input type="email" id="OwnerEmail" name="OwnerEmail" placeholder="you@example.com">
